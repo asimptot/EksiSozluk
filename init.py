@@ -35,6 +35,7 @@ class Setup:
         })
 
         self.actions = ActionChains(self.browser)
+        return self.browser
 
     def close_browser(self):
         self.browser.quit()

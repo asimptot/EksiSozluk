@@ -24,7 +24,10 @@ class Setup:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
+        # Chrome'u başlat
         self.browser = uc.Chrome(options=options)
+
+        # WebDriver algılamalarını engelle
         self.browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
             "source": """
                 Object.defineProperty(navigator, 'webdriver', {get: () => undefined})

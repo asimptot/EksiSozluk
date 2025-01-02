@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eksi Bot</title>
-    <script src="script.js" defer></script>
+    <title>Eksi Sözlük Bot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
-    <h1>Eksi Bot Control</h1>
-    <button id="start-button">Start Eksi Bot</button>
+    <h1>Eksi Sözlük Bot</h1>
+    <button id="start-button">Start</button>
     <div id="status"></div>
 </body>
 </html>

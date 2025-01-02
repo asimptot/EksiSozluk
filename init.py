@@ -24,6 +24,9 @@ class Setup:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
+        # Chrome binary location ayarı
+        options.binary_location = "/opt/render/project/.render/chrome/opt/google/chrome/"  # veya uygun yolu belirtin
+
         # Chrome'u başlat
         self.browser = uc.Chrome(options=options)
 

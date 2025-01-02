@@ -25,8 +25,14 @@ class Setup:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+        chrome_binary = os.environ.get("GOOGLE_CHROME_BIN")
+        chromedriver_path = os.environ.get("CHROMEDRIVER_PATH")
+
+        if not chrome_binary or not chromedriver_path:
+            raise EnvironmentError("GOOGLE_CHROME_BIN or CHROMEDRIVER_PATH is not set.")
+
+        options.binary_location = chrome_binary
+        service = ChromeService(executable_path=chromedriver_path)
 
         # Chrome'u başlat
         self.browser = uc.Chrome(service=service, options=options)

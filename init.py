@@ -1,10 +1,11 @@
 from time import sleep
-import warnings
+import warnings, os
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.service import Service as ChromeService
 import undetected_chromedriver as uc
 
 class Setup:
@@ -24,8 +25,11 @@ class Setup:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        chrome_binary_path = "/opt/render/project/.render/chrome/opt/google/chrome/chrome"  # Chrome'un yüklü olduğu yol
-        self.browser = uc.Chrome(options=options, browser_executable_path=chrome_binary_path)
+        options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+
+        # Chrome'u başlat
+        self.browser = uc.Chrome(service=service, options=options)
 
         # WebDriver algılamalarını engelle
         self.browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {

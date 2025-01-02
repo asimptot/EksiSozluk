@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify, Response
 import subprocess
+import threading
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -16,9 +17,12 @@ def run_eksi_bot():
         text=True
     )
 
+    # Stream output to the front-end
     for line in process.stdout:
+        # Here we yield the output line to send it to the client in real time
         yield f"data: {line}\n\n"
 
+    # Check for errors
     for line in process.stderr:
         yield f"data: {line}\n\n"
 
@@ -32,6 +36,7 @@ def index():
 def start_eksi():
     try:
         logger.info("Eksi bot starting...")
+        threading.Thread(target=run_eksi_bot).start()
         return jsonify({"status": "Eksi Bot started successfully."})
     except Exception as e:
         logger.error(f"Error occurred: {str(e)}")
@@ -40,17 +45,8 @@ def start_eksi():
 
 @app.route('/stream')
 def stream():
+    # Return a streaming response for SSE
     return Response(run_eksi_bot(), content_type='text/event-stream')
-
-
-@app.route('/logs', methods=['GET'])
-def get_logs():
-    try:
-        with open('eksi.log', 'r') as log_file:
-            logs = log_file.read()
-        return jsonify({"logs": logs})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':

@@ -7,7 +7,7 @@ class Eksi:
         while(True):
             try:
                 self.browser.get('https://eksisozluk.com/')
-                sleep(10)
+                sleep(5)
                 break
             except:
                 self.browser.refresh()
@@ -50,7 +50,7 @@ class Eksi:
         except:
             print('Failed to login.')
             Eksi.login(self)
-        sleep(10)
+        sleep(5)
 
     def surf(self):
         self.browser.get('https://eksisozluk.com/basliklar/bugun')

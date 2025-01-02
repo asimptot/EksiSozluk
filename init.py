@@ -24,11 +24,8 @@ class Setup:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        # Chrome binary location ayarı
-        options.binary_location = "/opt/render/project/.render/chrome/opt/google/chrome/"  # veya uygun yolu belirtin
-
-        # Chrome'u başlat
-        self.browser = uc.Chrome(options=options)
+        chrome_binary_path = "/opt/render/project/.render/chrome/opt/google/chrome/chrome"  # Chrome'un yüklü olduğu yol
+        self.browser = uc.Chrome(options=options, browser_executable_path=chrome_binary_path)
 
         # WebDriver algılamalarını engelle
         self.browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {

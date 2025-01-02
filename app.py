@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify
 from threading import Thread
 import time
-from eksi import Eksi  # Eksi sınıfını içe aktarın
+from eksi import Eksi
 
 app = Flask(__name__)
 eksi_instance = Eksi()

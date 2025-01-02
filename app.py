@@ -1,6 +1,10 @@
 from flask import Flask, render_template, jsonify, Response
 import subprocess
 import threading
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
@@ -31,10 +35,11 @@ def index():
 @app.route('/start', methods=['POST'])
 def start_eksi():
     try:
-        # Start the bot in a separate thread so it doesn't block the main process
+        logger.info("Eksi bot starting...")
         threading.Thread(target=run_eksi_bot).start()
         return jsonify({"status": "Eksi Bot started successfully."})
     except Exception as e:
+        logger.error(f"Error occurred: {str(e)}")
         return jsonify({"status": f"An error occurred: {str(e)}"}), 500
 
 

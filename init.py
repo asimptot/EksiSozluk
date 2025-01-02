@@ -10,8 +10,8 @@ import undetected_chromedriver as uc
 class Setup:
     def init(self):
         options = uc.ChromeOptions()
-        #options.add_argument('--headless')
-        #options.add_argument("--window-position=-2400,-2400")
+        options.add_argument('--headless')
+        options.add_argument("--window-position=-2400,-2400")
         options.add_argument("--incognito")
         options.add_argument("--disable-gpu")
         options.add_argument(

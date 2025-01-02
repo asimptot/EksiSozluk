@@ -1,11 +1,10 @@
 from time import sleep
-import warnings, os
+import warnings
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.chrome.service import Service as ChromeService
 import undetected_chromedriver as uc
 
 class Setup:
@@ -25,17 +24,8 @@ class Setup:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        chrome_binary = os.environ.get("GOOGLE_CHROME_BIN")
-        chromedriver_path = os.environ.get("CHROMEDRIVER_PATH")
-
-        if not chrome_binary or not chromedriver_path:
-            raise EnvironmentError("GOOGLE_CHROME_BIN or CHROMEDRIVER_PATH is not set.")
-
-        options.binary_location = chrome_binary
-        service = ChromeService(executable_path=chromedriver_path)
-
-        # Chrome'u başlat
-        self.browser = uc.Chrome(service=service, options=options)
+        chrome_binary_path = "/opt/render/.local/share/pyppeteer/local-chromium/588429/chrome-linux/chrome"  # Chrome'un yüklü olduğu yol
+        self.browser = uc.Chrome(options=options, browser_executable_path=chrome_binary_path)
 
         # WebDriver algılamalarını engelle
         self.browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {

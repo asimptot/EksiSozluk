@@ -24,7 +24,9 @@ class Setup:
         # Render'da Chrome binary'nin yolunu belirtin
         options.binary_location = "/opt/render/project/.render/chrome/opt/google/chrome/chrome"
 
-        # WebDriver Manager ile ChromeDriver yüklemesi
+        # Eğer yukarıdaki yol çalışmazsa, Chrome'u yerel olarak yüklemek için alternatif bir yol ekleyebilirsiniz.
+        # Chrome binary dosyasının doğru yolunu kontrol etmek ve tekrar belirtmek önemlidir.
+
         service = Service(ChromeDriverManager().install())
 
         # WebDriver başlatma

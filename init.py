@@ -9,6 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 import undetected_chromedriver as uc
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
+import os
 
 class Setup:
     def __init__(self):
@@ -26,8 +27,11 @@ class Setup:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        # WebDriver Manager ile ChromeDriver kurulumu
-        service = Service(ChromeDriverManager().install())
+        # Render ortamında Chrome ve Chromedriver'ı doğru şekilde kullanabilmek için
+        chrome_path = "/opt/render/project/.render/chrome/opt/google/chrome/chrome"
+        service = Service(chrome_path)
+
+        # Eğer path belirtilmişse, ChromeDriver'ı bu path ile başlat
         self.browser = webdriver.Chrome(service=service, options=options)
 
         # WebDriver algılamalarını engelle

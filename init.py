@@ -1,5 +1,5 @@
 from time import sleep
-import warnings
+import warnings, os
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -26,9 +26,12 @@ class Setup:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        options.binary_location = "/opt/render/project/.render/chrome/opt/google/chrome/chrome"
-        service = Service("/opt/render/project/.render/chrome/opt/google/chrome/chromedriver")
+        chromedriver_path = os.path.join(os.path.dirname(__file__), 'chromedriver')  # init.py ile aynı dizinde
+        if not os.path.exists(chromedriver_path):
+            raise FileNotFoundError(f"Chromedriver not found at {chromedriver_path}")
 
+        # ChromeDriver'ı başlat
+        service = Service(chromedriver_path)
         self.browser = webdriver.Chrome(service=service, options=options)
 
         # WebDriver algılamalarını engelle

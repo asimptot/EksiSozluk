@@ -26,6 +26,7 @@ class Setup:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
+        # WebDriver Manager ile ChromeDriver kurulumu
         service = Service(ChromeDriverManager().install())
         self.browser = webdriver.Chrome(service=service, options=options)
 

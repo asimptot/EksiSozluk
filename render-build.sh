@@ -4,7 +4,6 @@ set -o errexit
 
 STORAGE_DIR=/opt/render/project/.render
 
-# Chrome indir ve kur
 if [[ ! -d $STORAGE_DIR/chrome ]]; then
   echo "...Downloading Chrome"
   mkdir -p $STORAGE_DIR/chrome
@@ -12,18 +11,9 @@ if [[ ! -d $STORAGE_DIR/chrome ]]; then
   wget -P ./ https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   dpkg -x ./google-chrome-stable_current_amd64.deb $STORAGE_DIR/chrome
   rm ./google-chrome-stable_current_amd64.deb
-  cd $HOME/project/src # Make sure we return to where we were
+  cd $HOME/project/src
 else
   echo "...Using Chrome from cache"
 fi
 
-# Chromedriver indir ve kur
-if [[ ! -f $STORAGE_DIR/chromedriver ]]; then
-  echo "...Downloading Chromedriver"
-  wget -P $STORAGE_DIR https://chromedriver.storage.googleapis.com/$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
-  unzip $STORAGE_DIR/chromedriver_linux64.zip -d $STORAGE_DIR
-  rm $STORAGE_DIR/chromedriver_linux64.zip
-fi
-
-# PATH'e Chrome'u ekle
-export PATH="${PATH}:$STORAGE_DIR/chrome/opt/google/chrome:$STORAGE_DIR"
+pip install -r requirements.txt

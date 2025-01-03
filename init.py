@@ -1,5 +1,10 @@
 from time import sleep
 import warnings
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -24,7 +29,7 @@ class Setup:
         options.binary_location = "/opt/render/project/.render/chrome/opt/google/chrome/chromedriver"
 
         # Driver yolunu manuel ayarlamak yerine ChromeDriverManager ile kur
-        service = Service(ChromeDriverManager().install())
+        service = Service("/opt/render/project/.render/chrome/chromedriver")
 
         self.browser = webdriver.Chrome(service=service, options=options)
 

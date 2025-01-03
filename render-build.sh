@@ -16,4 +16,11 @@ else
   echo "...Using Chrome from cache"
 fi
 
+if [[ ! -f $STORAGE_DIR/chrome/chromedriver ]]; then
+  echo "...Downloading ChromeDriver"
+  wget -P $STORAGE_DIR/chrome https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
+  unzip $STORAGE_DIR/chrome/chromedriver_linux64.zip -d $STORAGE_DIR/chrome
+  rm $STORAGE_DIR/chrome/chromedriver_linux64.zip
+fi
+
 pip install -r requirements.txt

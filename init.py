@@ -10,6 +10,9 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
+# PATH'i güncelle
+os.environ["PATH"] = "/opt/render/project/.render/chrome/opt/google/chrome:" + os.environ["PATH"]
+
 class Setup:
     def __init__(self):
         options = Options()
@@ -26,13 +29,8 @@ class Setup:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        chromedriver_path = os.path.join(os.path.dirname(__file__), 'chromedriver')  # init.py ile aynı dizinde
-        if not os.path.exists(chromedriver_path):
-            raise FileNotFoundError(f"Chromedriver not found at {chromedriver_path}")
-
         # ChromeDriver'ı başlat
-        service = Service(chromedriver_path)
-        self.browser = webdriver.Chrome(service=service, options=options)
+        self.browser = webdriver.Chrome(options=options)
 
         # WebDriver algılamalarını engelle
         self.browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {

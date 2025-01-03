@@ -21,6 +21,9 @@ class Setup:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
+        # Render'da Chrome binary'nin yolunu belirtin
+        options.binary_location = "/opt/render/project/.render/chrome/opt/google/chrome/chrome"
+
         # WebDriver Manager ile ChromeDriver yüklemesi
         service = Service(ChromeDriverManager().install())
 

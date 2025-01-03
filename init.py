@@ -27,7 +27,7 @@ class Setup:
         # Eğer yukarıdaki yol çalışmazsa, Chrome'u yerel olarak yüklemek için alternatif bir yol ekleyebilirsiniz.
         # Chrome binary dosyasının doğru yolunu kontrol etmek ve tekrar belirtmek önemlidir.
 
-        service = Service(ChromeDriverManager().install())
+        service = Service("/opt/render/project/.render/chromedriver")
 
         # WebDriver başlatma
         self.browser = webdriver.Chrome(service=service, options=options)

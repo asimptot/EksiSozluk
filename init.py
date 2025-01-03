@@ -21,15 +21,11 @@ class Setup:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        # Render'da Chrome binary'nin yolunu belirtin
         options.binary_location = "/opt/render/project/.render/chrome/opt/google/chrome/chrome"
 
-        # Eğer yukarıdaki yol çalışmazsa, Chrome'u yerel olarak yüklemek için alternatif bir yol ekleyebilirsiniz.
-        # Chrome binary dosyasının doğru yolunu kontrol etmek ve tekrar belirtmek önemlidir.
+        # Driver yolunu manuel ayarlamak yerine ChromeDriverManager ile kur
+        service = Service(ChromeDriverManager().install())
 
-        service = Service("/opt/render/project/.render/chromedriver")
-
-        # WebDriver başlatma
         self.browser = webdriver.Chrome(service=service, options=options)
 
         # WebDriver algılamalarını engelle

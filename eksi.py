@@ -3,17 +3,17 @@ from unidecode import unidecode
 
 class Eksi:
     def setup(self):
-        Setup.init(self)
-        while(True):
+        self.setup_instance = Setup()  # Sınıf örneği oluştur
+        while True:
             try:
-                self.browser.get('https://eksisozluk.com/')
+                self.setup_instance.browser.get('https://eksisozluk.com/')
                 sleep(5)
                 break
             except:
-                self.browser.refresh()
+                self.setup_instance.browser.refresh()
         sleep(4)
 
-        actions = ActionChains(self.browser)
+        actions = ActionChains(self.setup_instance.browser)
         M = 3
         for _ in range(M):
             actions.send_keys(Keys.TAB).perform()
@@ -22,28 +22,28 @@ class Eksi:
         sleep(5)
 
     def login(self):
-        self.browser.get('https://eksisozluk.com/giris')
+        self.setup_instance.browser.get('https://eksisozluk.com/giris')
         sleep(4)
 
         while True:
             try:
-                WebDriverWait(self.browser, 10).until(
+                WebDriverWait(self.setup_instance.browser, 10).until(
                     EC.element_to_be_clickable((By.ID, 'username'))
                 ).send_keys('zorluasim93@gmail.com')
                 break
             except:
                 pass
 
-        password = self.browser.find_element(By.ID, 'password')
+        password = self.setup_instance.browser.find_element(By.ID, 'password')
         password.send_keys('Haschmeth*1')
         sleep(5)
 
-        actions = ActionChains(self.browser)
+        actions = ActionChains(self.setup_instance.browser)
         actions.send_keys(Keys.RETURN).perform()
         sleep(5)
 
         try:
-            WebDriverWait(self.browser, 10).until(
+            WebDriverWait(self.setup_instance.browser, 10).until(
                 EC.element_to_be_clickable((By.XPATH, '//*[@id="top-navigation"]/ul/li[6]/a'))
             )
             print('Logged in.')
@@ -53,73 +53,73 @@ class Eksi:
         sleep(5)
 
     def surf(self):
-        self.browser.get('https://eksisozluk.com/basliklar/bugun')
+        self.setup_instance.browser.get('https://eksisozluk.com/basliklar/bugun')
         sleep(4)
 
-        self.browser.get('https://eksisozluk.com/basliklar/gundem')
+        self.setup_instance.browser.get('https://eksisozluk.com/basliklar/gundem')
         sleep(4)
 
-        self.browser.get('https://eksisozluk.com/debe')
+        self.setup_instance.browser.get('https://eksisozluk.com/debe')
         sleep(4)
 
-        self.browser.get('https://eksisozluk.com/basliklar/sorunsal')
+        self.setup_instance.browser.get('https://eksisozluk.com/basliklar/sorunsal')
         sleep(4)
 
-        self.browser.get('https://eksisozluk.com/basliklar/takipentry')
+        self.setup_instance.browser.get('https://eksisozluk.com/basliklar/takipentry')
         sleep(4)
 
-        self.browser.get('https://eksisozluk.com/basliklar/son')
+        self.setup_instance.browser.get('https://eksisozluk.com/basliklar/son')
         sleep(4)
 
-        self.browser.get('https://eksisozluk.com/basliklar/kenar')
+        self.setup_instance.browser.get('https://eksisozluk.com/basliklar/kenar')
         sleep(4)
 
-        self.browser.get('https://eksisozluk.com/basliklar/caylaklar/bugun')
+        self.setup_instance.browser.get('https://eksisozluk.com/basliklar/caylaklar/bugun')
         sleep(4)
 
-        self.browser.get('https://eksisozluk.com/basliklar/kanal/spor')
+        self.setup_instance.browser.get('https://eksisozluk.com/basliklar/kanal/spor')
         sleep(4)
 
-        self.browser.get('https://eksisozluk.com/basliklar/kanal/iliskiler')
+        self.setup_instance.browser.get('https://eksisozluk.com/basliklar/kanal/iliskiler')
         sleep(4)
 
-        self.browser.get('https://eksisozluk.com/basliklar/kanal/siyaset')
+        self.setup_instance.browser.get('https://eksisozluk.com/basliklar/kanal/siyaset')
         sleep(4)
 
     def send_post(self):
-        self.browser.get('https://eksisozluk.com/')
+        self.setup_instance.browser.get('https://eksisozluk.com/')
         sleep(4)
 
-        main_title = WebDriverWait(self.browser, 10).until(
+        main_title = WebDriverWait(self.setup_instance.browser, 10).until(
             EC.presence_of_element_located((By.XPATH, '//*[@id="title"]/a/span'))
         )
         main_title.click()
         sleep(4)
 
-        get_url = self.browser.current_url
+        get_url = self.setup_instance.browser.current_url
         sleep(4)
 
-        self.browser.get(str(get_url)+'?p=3')
+        self.setup_instance.browser.get(str(get_url)+'?p=3')
         sleep(4)
 
-        copy = self.browser.find_element(By.XPATH, '//*[@id="entry-item"]/div[1]')
+        copy = self.setup_instance.browser.find_element(By.XPATH, '//*[@id="entry-item"]/div[1]')
         copy = copy.text
         copy = unidecode(copy)
         sleep(4)
 
-        paste = self.browser.find_element(By.XPATH, '//*[@id="editbox"]')
+        paste = self.setup_instance.browser.find_element(By.XPATH, '//*[@id="editbox"]')
         paste.send_keys(copy)
         sleep(4)
 
         N = 2
-        actions = ActionChains(self.browser)
+        actions = ActionChains(self.setup_instance.browser)
         for _ in range(N):
             actions.send_keys(Keys.TAB).perform()
         sleep(2)
         actions.send_keys(Keys.RETURN).perform()
         sleep(4)
 
-        if("efendimiz" in self.browser.page_source):
+        if("efendimiz" in self.setup_instance.browser.page_source):
             print('Your post was sent successfully.')
             sleep(180)
         else:
@@ -129,7 +129,7 @@ class Eksi:
         self.browser.get('https://eksisozluk.com/')
         sleep(4)
 
-        main_title = WebDriverWait(self.browser, 100).until(
+        main_title = WebDriverWait(self.setup_instance.browser, 100).until(
             EC.presence_of_element_located((By.XPATH, '//*[@id="entry-item"]/footer/div[1]/span[2]/a[1]'))
         )
         main_title.click()

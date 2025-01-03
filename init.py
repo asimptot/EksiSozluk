@@ -26,10 +26,8 @@ class Setup:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        options.binary_location = "/opt/render/project/.render/chrome/opt/google/chrome/chromedriver"
-
-        # Driver yolunu manuel ayarlamak yerine ChromeDriverManager ile kur
-        service = Service("/opt/render/project/.render/chrome/chromedriver")
+        options.binary_location = "/opt/render/project/.render/chrome/opt/google/chrome/chrome"
+        service = Service("/opt/render/project/.render/chrome/opt/google/chrome/chromedriver")
 
         self.browser = webdriver.Chrome(service=service, options=options)
 

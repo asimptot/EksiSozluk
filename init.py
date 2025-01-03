@@ -9,6 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+import logging
 
 # PATH'i güncelle
 os.environ["PATH"] = "/opt/render/project/.render/chrome/opt/google/chrome:" + os.environ["PATH"]

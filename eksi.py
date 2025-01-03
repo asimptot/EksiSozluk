@@ -1,12 +1,15 @@
 from init import *
 from unidecode import unidecode
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 class Eksi:
     def setup(self):
-        self.setup_instance = Setup()  # Sınıf örneği oluştur
+        self.setup_instance = Setup()
         while True:
             try:
                 self.setup_instance.browser.get('https://eksisozluk.com/')
+                logger.info("Starting browser setup")
                 sleep(5)
                 break
             except:
@@ -47,8 +50,10 @@ class Eksi:
                 EC.element_to_be_clickable((By.XPATH, '//*[@id="top-navigation"]/ul/li[6]/a'))
             )
             print('Logged in.')
+            logger.info("Logged in.")
         except:
             print('Failed to login.')
+            logger.info("Failed to login.")
             Eksi.login(self)
         sleep(5)
 
@@ -121,9 +126,11 @@ class Eksi:
 
         if("efendimiz" in self.setup_instance.browser.page_source):
             print('Your post was sent successfully.')
+            logger.info("Your post was sent successfully.")
             sleep(180)
         else:
             print('An error occurred while sending the post.')
+            logger.info("An error occurred while sending the post.")
 
     def fav(self):
         self.browser.get('https://eksisozluk.com/')
@@ -135,6 +142,7 @@ class Eksi:
         main_title.click()
         sleep(4)
         print('The post has been added to favorites.')
+        logger.info("The post has been added to favorites.")
 
     def close_browser(self):
         Setup.close_browser(self)
@@ -150,6 +158,7 @@ while(True):
         eks.fav()
     except:
         print('No content has been found to copy. Retrying...')
+        logger.info("No content has been found to copy. Retrying...")
         eks.close_browser()
         eks.setup()
         try:

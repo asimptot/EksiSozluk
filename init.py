@@ -31,7 +31,7 @@ class Setup:
         options.add_argument("--disable-dev-shm-usage")
 
         # ChromeDriver'ı başlat
-        self.browser = webdriver.Chrome(options=options)
+        self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
         # WebDriver algılamalarını engelle
         self.browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {

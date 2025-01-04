@@ -17,14 +17,19 @@ def run_eksi_bot():
         text=True
     )
 
-    # Stream output to the front-end
-    for line in process.stdout:
-        # Here we yield the output line to send it to the client in real time
-        yield f"data: {line}\n\n"
+    while True:
+        output = process.stdout.readline()
+        if output == '' and process.poll() is not None:
+            break
+        if output:
+            logger.info(output.strip())
+            # Burada çıktıyı bir dosyaya veya veritabanına yazabilirsiniz
+            # Örneğin: write_to_file(output.strip())
 
-    # Check for errors
-    for line in process.stderr:
-        yield f"data: {line}\n\n"
+    # Hata kontrolü
+    stderr_output = process.stderr.read()
+    if stderr_output:
+        logger.error(stderr_output.strip())
 
 
 @app.route('/')
